@@ -13,7 +13,7 @@ test('1 banana should equal 30', () => {
 });
 
 test('2 bananas should equal 45', () => {
-  expect(index.checkout(['B15', 'B15', 'B15'])).toBe(45);
+  expect(index.checkout(['B15', 'B15'])).toBe(45);
 });
 
 test('1 cherry should equal 60', () => {
@@ -38,4 +38,8 @@ test('3 apples and 3 bananas should equal 205', () => {
 
 test('1 cherry and 1 tangerine should equal 159', () => {
   expect(index.checkout(['T34', 'C40'])).toBe(159);
+});
+
+test('3 apples and 2 tangerine should equal 328', () => {
+  expect(index.checkout(['A99', 'T34', 'A99', 'T34', 'A99'])).toBe(328);
 });
