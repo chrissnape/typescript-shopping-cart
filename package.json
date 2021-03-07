@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "simple node shopping cart",
   "scripts": {
-    "checkout": "node -e 'require(\"./src/index.js\").foo()'", 
+    "checkout": "node -e 'require(\"./src/index.js\").getTotal()'", 
     "test": "jest"
   },
   "author": "chrissnape",

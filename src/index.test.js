@@ -43,3 +43,15 @@ test('1 cherry and 1 tangerine should equal 159', () => {
 test('3 apples and 2 tangerine should equal 328', () => {
   expect(index.checkout(['A99', 'T34', 'A99', 'T34', 'A99'])).toBe(328);
 });
+
+test('id not in product list should equal 0', () => {
+  expect(index.checkout(['Z11'])).toBe(0);
+});
+
+test('1 apple and id not in product list should equal 50', () => {
+  expect(index.checkout(['Z11', 'A99'])).toBe(50);
+});
+
+test('3 apples should equal 150 in total', () => {
+  expect(index.getFullTotal(['A99', 'A99', 'A99'])).toBe(150);
+});

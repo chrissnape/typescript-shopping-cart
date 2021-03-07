@@ -17,25 +17,25 @@ const products: Array<Product> = [
   {id: 'T34', name: 'Tangerine', price: 99, offer: null},
 ];
 
-export const checkout = (items: Array<string>): number => {
+export const checkout = (itemIds: Array<string>): number => {
   let total: number = 0;
-  const sortedProducts: Array<Array<string>> = (
+  const talliedIds: Array<Array<string>> = (
     products.map((product: Product): Array<string> => (
-      items.filter((item: string) => item === product.id)
+      itemIds.filter((item: string): boolean => item === product.id)
     ))
   );
 
-  sortedProducts.forEach((sortedItems: Array<string>) => {
+  talliedIds.forEach((talliedId: Array<string>) => {
     let tally: number = 0;
-    sortedItems.forEach((item: string, i: number) => {
-      const product = products.find((p: Product) => p.id === item);
+    talliedId.forEach((id: string, i: number) => {
+      const product: Product | undefined = products.find((p: Product) => p.id === id);
       if (product) {
         const { offer, price } = product;
         if (offer) {
           const { price: offerPrice, amount } = offer;
           if (tally < amount - 1) {
             tally ++;
-            if (i === sortedItems.length -1) {
+            if (i === talliedId.length -1) {
               total += tally * price;
             }
           } else {
@@ -50,4 +50,22 @@ export const checkout = (items: Array<string>): number => {
   });
 
   return total;
+};
+
+export const getFullTotal = (itemIds: Array<string>): number => (
+  itemIds.map((id: string) => {
+    const product: Product | undefined = products.find((p: Product) => p.id === id);
+    return product ? product.price : 0;
+  }).reduce((a: number, b: number) => a + b, 0)
+);
+
+export const getTotal = () => {
+  const itemIds: Array<string> = process.argv.slice(1);
+  itemIds.forEach((id: string) => {
+    const product: Product | undefined = products.find((p: Product) => p.id === id);
+    console.log(product ? `${product.name}: ${product.price}` : `Product ${id} not found`);
+  });
+  const checkoutTotal = checkout(itemIds);
+  const savedAmount = getFullTotal(itemIds) - checkoutTotal;
+  console.log(`The total is ${checkoutTotal}${savedAmount ? `, you saved ${savedAmount} today.` : `.`}`);
 };
