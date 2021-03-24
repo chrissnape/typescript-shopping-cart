@@ -1,5 +1,5 @@
 # typescript-shopping-cart
-a simple shopping cart written in typescript
+a very simple shopping cart written in typescript with minimal UI
 
 First run
 
